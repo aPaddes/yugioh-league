@@ -1,49 +1,234 @@
-export async function getAuthInfo() {
-  const res = await fetch("/.auth/me");
-  const data = await res.json();
-  return data;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #111827;
 }
 
-export async function apiGet(url) {
-  const res = await fetch(url);
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || `GET ${url} failed`);
-  }
-  return res.json();
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-export async function apiPost(url, body) {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || `POST ${url} failed`);
-  }
-  return res.json();
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
-export async function apiPatch(url, body) {
-  const res = await fetch(url, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || `PATCH ${url} failed`);
-  }
-  return res.json();
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-export async function apiDelete(url) {
-  const res = await fetch(url, { method: "DELETE" });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || `DELETE ${url} failed`);
-  }
-  return res.json();
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tabs button,
+button {
+  background: #2563eb;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #64748b;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+button.small {
+  padding: 6px 10px;
+}
+
+.tabs button.active {
+  background: #111827;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card.subtle {
+  background: #f8fafc;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.alert.error,
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.alert.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.big {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input,
+.form select,
+.form textarea,
+.topbar select,
+.admin-row input,
+.admin-row select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.list-item.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.admin-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 240px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  font-size: 12px;
+}
+
+.group-slifer {
+  background: #fecaca;
+}
+
+.group-ra {
+  background: #fef08a;
+}
+
+.group-obelisk {
+  background: #bfdbfe;
+}
+
+.bracket {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.round {
+  min-width: 220px;
+}
+
+.match {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.match button {
+  text-align: left;
+  background: white;
+  color: #111827;
+  border: 1px solid #dbeafe;
+}
+
+.match button.winner {
+  background: #dcfce7;
+  border-color: #16a34a;
 }
